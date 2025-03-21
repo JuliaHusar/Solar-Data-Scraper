@@ -1,12 +1,11 @@
 import os
-import sys
 import argparse
 import logging
-import requests
 from dotenv import load_dotenv
 
 load_dotenv('api_keys.env')
 
+#Maps + Arrays for the different args
 param_values = {
     "system_size": "system_capacity",
     "module_type": "module_type",
@@ -37,7 +36,8 @@ def main():
     args = parse_args()
     get_data(args)
 
-
+#The goal is to have this return a json along with other cities and export it as either a json or csv.
+#Right now all this does is return a link with the json file
 def get_data(args):
     base_url = "https://developer.nrel.gov/api/pvwatts/v8.json?api_key=" + str(api_key)
     for arg, value in vars(args).items():
@@ -58,6 +58,7 @@ def get_data(args):
     print(base_url)
 
 
+#Arguments for the commandline. I still have to add a few optional arguments.
 def parse_args():
     parser = argparse.ArgumentParser(description="Use to retrieve solar data based on specific parameters")
     parser.add_argument(
